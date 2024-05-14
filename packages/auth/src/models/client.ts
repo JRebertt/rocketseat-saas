@@ -7,11 +7,3 @@ export const clientSchema = z.object({
 })
 
 export type Client = z.infer<typeof clientSchema>
-
-// export const organizationSchema = z.object({
-//   __typename: z.literal('Organization').default('Organization'),
-//   id: z.string(),
-//   role: roleSchema,
-//   ownerId: z.string(),
-// })
-// export type Organization = z.infer<typeof organizationSchema>

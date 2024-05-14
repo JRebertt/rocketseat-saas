@@ -16,9 +16,9 @@ import { purchaseSubject } from './subjects/purchase'
 import { userSubject } from './subjects/user'
 
 const appAbilitiesSchema = z.union([
+  userSubject,
   clientSubject,
   purchaseSubject,
-  userSubject,
   organizationSubject,
   inviteSubject,
   billingSubject,

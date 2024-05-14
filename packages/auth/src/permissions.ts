@@ -22,8 +22,10 @@ export const permissions: Record<Role, PermissionsByRole> = {
     can('get', 'User')
 
     can(['create', 'get'], 'Client')
-    cannot(['delete'], 'Client')
-    can(['delete'], 'Client', { organizationId: { $eq: user.organizationId } })
+    cannot(['delete', 'update'], 'Client')
+    can(['delete', 'update'], 'Client', {
+      organizationId: { $eq: user.organizationId },
+    })
 
     cannot(['get'], 'Purchase')
     can(['get'], 'Purchase', { organizationId: { $eq: user.organizationId } })
