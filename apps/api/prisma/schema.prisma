@@ -146,8 +146,7 @@ model Client {
   organization   Organization @relation(fields: [organizationId], references: [id])
   organizationId String       @map("organization_id")
 
-  purchase   Purchase @relation(fields: [purchaseId], references: [id])
-  purchaseId String   @map("purchase_id")
+  purchases Purchase[]
 
   @@unique([email, phoneNumber])
   @@map("clients")
@@ -161,7 +160,8 @@ model Purchase {
   description    String?
   paymentMethod  String   @map("payment_method")
 
-  clients Client[]
+  clientId String
+  client   Client @relation(fields: [clientId], references: [id])
 
   @@index([service, purchaseDate])
   @@map("purchases")

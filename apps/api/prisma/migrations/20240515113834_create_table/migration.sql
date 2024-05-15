@@ -96,7 +96,6 @@ CREATE TABLE "clients" (
     "state" TEXT,
     "created_at" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
     "organization_id" TEXT NOT NULL,
-    "purchase_id" TEXT NOT NULL,
 
     CONSTRAINT "clients_pkey" PRIMARY KEY ("id")
 );
@@ -109,6 +108,7 @@ CREATE TABLE "purchases" (
     "purchase_date" TIMESTAMP(3) NOT NULL,
     "description" TEXT,
     "payment_method" TEXT NOT NULL,
+    "clientId" TEXT NOT NULL,
 
     CONSTRAINT "purchases_pkey" PRIMARY KEY ("id")
 );
@@ -133,6 +133,9 @@ CREATE UNIQUE INDEX "members_organization_id_user_id_key" ON "members"("organiza
 
 -- CreateIndex
 CREATE UNIQUE INDEX "organizations_slug_domain_key" ON "organizations"("slug", "domain");
+
+-- CreateIndex
+CREATE UNIQUE INDEX "clients_email_key" ON "clients"("email");
 
 -- CreateIndex
 CREATE UNIQUE INDEX "clients_email_phone_number_key" ON "clients"("email", "phone_number");
@@ -165,4 +168,4 @@ ALTER TABLE "organizations" ADD CONSTRAINT "organizations_owner_id_fkey" FOREIGN
 ALTER TABLE "clients" ADD CONSTRAINT "clients_organization_id_fkey" FOREIGN KEY ("organization_id") REFERENCES "organizations"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
 
 -- AddForeignKey
-ALTER TABLE "clients" ADD CONSTRAINT "clients_purchase_id_fkey" FOREIGN KEY ("purchase_id") REFERENCES "purchases"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
+ALTER TABLE "purchases" ADD CONSTRAINT "purchases_clientId_fkey" FOREIGN KEY ("clientId") REFERENCES "clients"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
