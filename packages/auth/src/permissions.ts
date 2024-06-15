@@ -2,7 +2,7 @@ import { AbilityBuilder } from '@casl/ability'
 
 import { AppAbility } from '.'
 import { User } from './models/user'
-import { Role } from './role'
+import { Role } from './roles'
 
 type PermissionsByRole = (
   user: User,
@@ -27,8 +27,15 @@ export const permissions: Record<Role, PermissionsByRole> = {
       organizationId: { $eq: user.organizationId },
     })
 
-    cannot(['get'], 'Purchase')
-    can(['get'], 'Purchase', { organizationId: { $eq: user.organizationId } })
+    cannot(['get', 'create'], 'Metrics')
+    can(['get', 'create'], 'Metrics', {
+      organizationId: { $eq: user.organizationId },
+    })
+
+    cannot(['manage'], 'Purchase')
+    can(['manage'], 'Purchase', {
+      organizationId: { $eq: user.organizationId },
+    })
   },
   BILLING(_, { can }) {
     can('manage', 'Billing')

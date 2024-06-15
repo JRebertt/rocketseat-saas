@@ -24,3 +24,9 @@
 > ✅ = allowed
 > ❌ = not allowed
 > ⚠️ = allowed w/ conditions
+
+**Basic**: 
+  1. Limite de 200 clients por organizção
+  2. Não tem permissões para relatorios e graficos
+
+**Pro**: Clients Ilimitados, acesso aos relatorios

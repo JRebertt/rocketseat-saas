@@ -11,9 +11,17 @@ import { permissions } from './permissions'
 import { billingSubject } from './subjects/billing'
 import { clientSubject } from './subjects/client'
 import { inviteSubject } from './subjects/invite'
+import { metricSubject } from './subjects/metrics'
 import { organizationSubject } from './subjects/organization'
 import { purchaseSubject } from './subjects/purchase'
 import { userSubject } from './subjects/user'
+
+export * from './models/organization'
+export * from './models/purchase'
+export * from './models/client'
+export * from './models/user'
+export * from './models/metrics'
+export * from './roles'
 
 const appAbilitiesSchema = z.union([
   userSubject,
@@ -22,6 +30,7 @@ const appAbilitiesSchema = z.union([
   organizationSubject,
   inviteSubject,
   billingSubject,
+  metricSubject,
   z.tuple([z.literal('manage'), z.literal('all')]),
 ])
 
