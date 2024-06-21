@@ -32,7 +32,13 @@ import { rejectInvite } from './routes/invites/reject-invite'
 import { revokeInvite } from './routes/invites/revoke-invite'
 import { removeMember } from './routes/members/remove-member'
 import { updateMember } from './routes/members/update-member'
+import { getActiveCustomers } from './routes/metrics/get-active-customers'
+import { getNewCustomersByPeriod } from './routes/metrics/get-new-customers-by-period'
+import { getPurchasesByPeriod } from './routes/metrics/get-purchases-by-period'
+import { getRevenueByPeriod } from './routes/metrics/get-revenue-by-period'
+import { getTopClients } from './routes/metrics/get-top-clients'
 import { getTopServices } from './routes/metrics/get-top-services'
+import { getTotalCustomers } from './routes/metrics/get-total-custumer'
 import { createOrganization } from './routes/orgs/create-organization'
 import { getMembership } from './routes/orgs/get-membership'
 import { getOrganization } from './routes/orgs/get-organization'
@@ -119,18 +125,6 @@ app.register(rejectInvite)
 app.register(revokeInvite)
 app.register(getPendingInvites)
 
-console.log('DATABASE_URL:', process.env.DATABASE_URL)
-console.log('JWT_SECRET:', process.env.JWT_SECRET)
-console.log('GITHUB_OAUTH_CLIENT_ID:', process.env.GITHUB_OAUTH_CLIENT_ID)
-console.log(
-  'GITHUB_OAUTH_CLIENT_SECRET:',
-  process.env.GITHUB_OAUTH_CLIENT_SECRET,
-)
-console.log(
-  'GITHUB_OAUTH_CLIENT_REDIRECT_URI:',
-  process.env.GITHUB_OAUTH_CLIENT_REDIRECT_URI,
-)
-
 // Purchases
 app.register(createPurchase)
 app.register(deletePurchase)
@@ -141,6 +135,12 @@ app.register(getPurchases)
 
 // Metrics
 app.register(getTopServices)
+app.register(getTopClients)
+app.register(getPurchasesByPeriod)
+app.register(getRevenueByPeriod)
+app.register(getNewCustomersByPeriod)
+app.register(getTotalCustomers)
+app.register(getActiveCustomers)
 
 app.register(fastifyCors)
 

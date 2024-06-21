@@ -37,6 +37,26 @@ async function seed() {
     },
   })
 
+  // Gerar 6 clientes, cada um com 4 compras
+  const clientsData = Array.from({ length: 6 }).map(() => ({
+    name: faker.person.fullName(),
+    phoneNumber: faker.phone.number(),
+    birthday: faker.date.birthdate(),
+    email: faker.internet.email(),
+    city: faker.location.city(),
+    state: faker.location.state(),
+    street: faker.location.street(),
+    purchases: {
+      create: Array.from({ length: 4 }).map(() => ({
+        service: faker.commerce.productName(),
+        purchaseAmount: parseFloat(faker.commerce.price()),
+        purchaseDate: faker.date.recent(),
+        description: faker.commerce.productDescription(),
+        paymentMethod: faker.finance.transactionType(),
+      })),
+    },
+  }))
+
   await prisma.organization.create({
     data: {
       name: 'Acme Inc (Admin)',
@@ -46,37 +66,38 @@ async function seed() {
       shouldAttachUsersByDomain: true,
       ownerId: user.id,
       clients: {
-        createMany: {
-          data: [
-            {
-              name: faker.lorem.words(5),
-              phoneNumber: faker.phone.number(),
-              birthday: faker.date.birthdate(),
-              email: faker.internet.email(),
-              city: faker.location.city(),
-              state: faker.location.state(),
-              street: faker.location.street(),
-            },
-            {
-              name: faker.lorem.words(5),
-              phoneNumber: faker.phone.number(),
-              birthday: faker.date.birthdate(),
-              email: faker.internet.email(),
-              city: faker.location.city(),
-              state: faker.location.state(),
-              street: faker.location.street(),
-            },
-            {
-              name: faker.lorem.words(5),
-              phoneNumber: faker.phone.number(),
-              birthday: faker.date.birthdate(),
-              email: faker.internet.email(),
-              city: faker.location.city(),
-              state: faker.location.state(),
-              street: faker.location.street(),
-            },
-          ],
-        },
+        create: clientsData,
+        // createMany: {
+        //   data: [
+        //     {
+        //       name: faker.lorem.words(5),
+        //       phoneNumber: faker.phone.number(),
+        //       birthday: faker.date.birthdate(),
+        //       email: faker.internet.email(),
+        //       city: faker.location.city(),
+        //       state: faker.location.state(),
+        //       street: faker.location.street(),
+        //     },
+        //     {
+        //       name: faker.lorem.words(5),
+        //       phoneNumber: faker.phone.number(),
+        //       birthday: faker.date.birthdate(),
+        //       email: faker.internet.email(),
+        //       city: faker.location.city(),
+        //       state: faker.location.state(),
+        //       street: faker.location.street(),
+        //     },
+        //     {
+        //       name: faker.lorem.words(5),
+        //       phoneNumber: faker.phone.number(),
+        //       birthday: faker.date.birthdate(),
+        //       email: faker.internet.email(),
+        //       city: faker.location.city(),
+        //       state: faker.location.state(),
+        //       street: faker.location.street(),
+        //     },
+        //   ],
+        // },
       },
       members: {
         createMany: {

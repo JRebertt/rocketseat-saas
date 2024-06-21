@@ -23,7 +23,7 @@ export async function getRevenueByPeriod(app: FastifyInstance) {
             slug: z.string(),
           }),
           querystring: z.object({
-            period: z.enum(['week', 'month']),
+            period: z.enum(['week', 'month']).default('month'),
           }),
           response: {
             200: z.object({
@@ -36,7 +36,7 @@ export async function getRevenueByPeriod(app: FastifyInstance) {
       async (request, reply) => {
         const { slug } = request.params
         const { period } = request.query
-        console.log(period)
+
         const userId = await request.getCurrentUserId()
         const { membership, organization } =
           await request.getUserMembership(slug)
